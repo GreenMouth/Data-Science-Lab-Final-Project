@@ -1,0 +1,50 @@
+#################################################
+# Ignore autosaves/checkpoints
+*checkpoint*
+.jupyter
+
+# Ignore virtualenv 
+bin
+include
+lib
+local
+share
+*selfcheck.json
+
+# Ignore temp files
+~$*
+*TMP*
+*.tmp
+*.swp
+.requirements.swp
+
+# Ignore automatically generated documents for 
+# notebook to pdf conversion
+output?????.png
+output????.png
+notebook.tex
+
+# Ignore sed files
+sed*
+# Ignore pdfs
+*0.pdf
+*1.pdf
+*2.pdf
+*3.pdf
+*4.pdf
+*5.pdf
+*6.pdf
+*7.pdf
+*8.pdf
+*9.pdf
+# Ignore tex files
+*.aux
+*.dvi
+*.log
+*.synctex.
+*.toc
+
+# Ignore dataset folder
+datasets
+# ignore book-pdf
+book-pdf
