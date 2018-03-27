@@ -6,7 +6,7 @@ put stuff here
 ## Feel free to set up on your machine however you want
 But note I added a .gitignore if you want to use it, it ignores virtual environment files.
 
-(If you want) You can make a virtual environement by
+(If you want) You can make a virtual environment by
 
 ```
 # Make a virtual environment
