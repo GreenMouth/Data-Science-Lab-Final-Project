@@ -26,25 +26,10 @@ notebook.tex
 
 # Ignore sed files
 sed*
-# Ignore pdfs
-*0.pdf
-*1.pdf
-*2.pdf
-*3.pdf
-*4.pdf
-*5.pdf
-*6.pdf
-*7.pdf
-*8.pdf
-*9.pdf
+
 # Ignore tex files
 *.aux
 *.dvi
 *.log
 *.synctex.
 *.toc
-
-# Ignore dataset folder
-datasets
-# ignore book-pdf
-book-pdf
