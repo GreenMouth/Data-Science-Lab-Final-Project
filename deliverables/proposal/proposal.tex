@@ -1,9 +1,14 @@
 \documentclass{article}
+\usepackage{hyperref}
+\usepackage[margin=1.25in]{geometry}
+
 
 % title information
 \title{Final Project Proposal}
 \author{by Kate B{\"a}umli, Corey Hulse, Amanraj Mahal, John Sigmon}
 \date{April 9, 2018}
+
+
 \pagenumbering{gobble}
 
 \begin{document}
@@ -11,21 +16,12 @@
 \maketitle
 
 \section{Problem Statement}
-Exploratory work on ted talk data set
-explain what data we have and what it is
+The project we are proposing is an exploration of two data sets based on TED Talk\footnote{by the way, this stands for Technology, Entertainment, and Design} transcripts. The first data set is from a \href{https://www.kaggle.com/rounakbanik/ted-talks}{Kaggle competition} and has transcripts and various meta-data. The second data set is located on \href{https://github.com/saranyan/TED-Talks}{GitHub} and contains only transcripts, but they are cleaned (i.e. no punctuation.) The posted competition is also exploratory in nature, although we plan to explore different questions than the ones posed on the Kaggle page. Our specific goals are listed below.
 
 \section{Problem Approach}
-combine data sets and open source it
-Examine differences between speech patterns of men and women
--most used words, word speed
-try to predict number of like or whether talks are more likely to get tags
-exploratory work
--do sentiment analysis and compare with accuracy of tags
- like inspiring.
-- predicting whether a talk gets more laughs
--explore having a model write a talk description based off transcript
+Our first 'thing on the agenda' is to combine the two data sets. We plan to use \href{http://textblob.readthedocs.io/en/dev/}{TextBlob} to do sentiment analysis on the transcripts and analyze them for patterns and correlations with the provided meta data. We plan to divide the data set based on sex and analyze the transcripts for patterns in speech such as most frequently used words. We will also use these analyses to see if there is a way to predict how popular a talk will be, either via number of likes, or via supplied meta-data tags like "inspiring". Depending on our time constraints, we may attempt to develop a model that can generate speaker biographies or entire talks.
 
 \section{Related Work}
-talk about kaggle kernels
+There exist several well prepared kernels on the \href{https://www.kaggle.com/rounakbanik/ted-talks/kernels}{Kaggle page} for the data set. As far as we know, there is no overlap between our proposed project and the kernels that have been posted here. --- summarize the kernels.
 
 \end{document}
