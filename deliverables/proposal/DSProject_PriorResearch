@@ -1,0 +1,34 @@
+-Nearly half the talks rated as the top ten "most beautiful" talks appear on the
+most "Jaw dropping", "Funniest" and "Confusing" lists. This could show that the
+most successful talks aim to illicit a large number of emotions over the course
+of a talk. 
+
+-No correlation between the length of a talk and it's number of views
+
+-Possible non-linear correlation with the number of words per minute and view for
+a talk
+
+-Culture is the subject that garners the highest median number of views per talk,
+but all subjects are relatively close suggesting not a very strong correlation
+between talk subject and the number of views but possibly a slight one. Culture
+also has the biggest spread on it's view distribution
+
+-Most common themes are Technology and Science
+
+-Medium correlation between the number of languages a talk has been translated
+into and the number of views
+
+-There is a medium correlation between the occupation of the speaker and the 
+number of views the talk receives. Psychologist have the highest view counts
+with writers as the second highest and also the biggest spread. 
+
+-Nearly half of the top ten viewed talks are about religion or have religous
+undertones
+
+-Strong correlation between whether the talk was given on a week day or not and
+the number of views it received. Talks on weekdays had far more views than talks
+on weekends
+
+-No strong correlation between month of the year and view count
+
+-Tf-Idf have been suggested to use in order to create vectors describing the text
