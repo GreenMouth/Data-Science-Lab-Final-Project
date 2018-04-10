@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
-\usepackage[margin=1.25in]{geometry}
+\usepackage[margin=1.2in]{geometry}
 
 
 % title information
@@ -19,9 +19,19 @@
 The project we are proposing is an exploration of two data sets based on TED Talk\footnote{by the way, this stands for Technology, Entertainment, and Design} transcripts. The first data set is from a \href{https://www.kaggle.com/rounakbanik/ted-talks}{Kaggle competition} and comes with transcripts and various meta-data. The second data set is located on a personal \href{https://github.com/saranyan/TED-Talks}{GitHub repo} and contains only transcripts, but they are cleaned. The two data sets almost completely overlap. The competition is also exploratory in nature, however we plan to answer different questions than the ones posed on the Kaggle page. Our specific goals are listed below.
 
 \section{Problem Approach}
-Our first task is to combine the data sets. We consider this a preliminary step. Afterwards, we plan to use \href{http://textblob.readthedocs.io/en/dev/}{TextBlob} to do sentiment analysis on the transcripts and analyze them for patterns and correlations. Next, we will divide the data set based on sex and analyze the transcripts for differences in speech patterns. We will also use these analyses to see if it is feasible to predict how popular a talk will be. Two potential ways of quantifying popularity are via number of video likes or via supplied meta-data tags such as "inspiring". Finally, we will attempt to develop a model that can generate speaker biographies or entire talks, depending on time constraints. It is our belief that there is a relatively substantial and worthwhile story to be found by exploring these ideas.
+Our first task is to combine the data sets. We consider this a preliminary step. Afterwards, we plan to use \href{http://textblob.readthedocs.io/en/dev/}{TextBlob} and tf-idf\footnote{Term Frequency-Inverse Document Frequency is a numerical statistic used to reflect the importance of a word in a collection of words} vectors to do sentiment analysis on the transcripts and analyze them for patterns and correlations. Next, we will divide the data set based on sex and analyze the transcripts for differences in speech patterns. We will also use these analyses to see if it is feasible to predict how popular a talk will be. Predicting popularity may allow suggestive improvement of future talks based on correlation between features and talk popularity. Two potential ways of quantifying popularity are via number of video likes or via supplied meta-data tags such as 'inspiring'. Finally, we will attempt to develop a model that can generate speaker biographies or entire talks, depending on time constraints. It is our belief that there is a relatively substantial and worthwhile story to be found by exploring these ideas.
 
 \section{Related Work}
-There exist several well prepared kernels on the \href{https://www.kaggle.com/rounakbanik/ted-talks/kernels}{Kaggle page} for the data set. As far as we know, there is no overlap between our proposed project and the kernels that have been posted here. --- summarize the kernels.
+There exist several well prepared kernels on the \href{https://www.kaggle.com/rounakbanik/ted-talks/kernels}{Kaggle page} for the data set. As far as we know, there is no overlap between our proposed project and the kernels that have been posted here. 
 
+Some of the things that have already been explored are: 
+\begin{itemize}
+	\item Correlation between length of talk and number of views
+	\item Correlation between talking speed and number of views
+	\item Correlations between talk 'tags' and number of views
+	\item Occupation of the speaker and number of views
+	\item Correlation between day of the week of the talk and number of views	
+\end{itemize}
+
+We feel that the topics we plan to explore will largely diverge from this work, and that the results will be worthwhile.
 \end{document}

@@ -31,6 +31,6 @@ sed*
 *.aux
 *.dvi
 *.log
-*.synctex.gz
+*synctex*
 *.toc
 *.out
