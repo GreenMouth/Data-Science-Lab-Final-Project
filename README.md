@@ -1,7 +1,9 @@
 # Data-Science-Lab-Final-Project
 ---
-## Wutz dis repo
-put stuff here
+## Datasets
+[Kaggle Dataset](https://www.kaggle.com/rounakbanik/ted-talks)
+<br>
+[Github Dataset](https://github.com/saranyan/TED-Talks)
 
 ## Feel free to set up on your machine however you want
 But note I added a .gitignore if you want to use it, it ignores virtual environment files.
