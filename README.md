@@ -2,6 +2,7 @@
 ---
 ## Datasets
 [Kaggle Dataset](https://www.kaggle.com/rounakbanik/ted-talks)
+<br>
 [Github Dataset](https://github.com/saranyan/TED-Talks)
 
 ## Feel free to set up on your machine however you want
