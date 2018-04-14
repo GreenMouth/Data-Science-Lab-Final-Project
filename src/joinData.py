@@ -7,7 +7,7 @@
 def main():
     print("Joining data sets")
     import pandas as pd
-    filepath = '../raw-data/kaggle-data/'
+    filepath = '../data/kaggle-data/'
     file_1 = 'clean_transcripts.csv'
     file_2 = 'ted_main.csv'
     dest_file = 'merged_data.csv'

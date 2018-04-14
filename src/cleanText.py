@@ -8,7 +8,7 @@ def main():
     print('Cleaning your data...')
     filename = 'transcripts.csv'
     target_filename = 'clean_transcripts.csv'
-    filepath = '../raw-data/kaggle-data/'
+    filepath = '../data/kaggle-data/'
 
     df = pd.read_csv(filepath + filename)
 
