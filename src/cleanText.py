@@ -12,9 +12,9 @@ def main():
 
     df = pd.read_csv(filepath + filename)
 
-    patts = [".", "?", "!", "\'", "(Laughter)", "(Applause)"]
+    patts = [".", "?", "!", "\'", "(Laughter)", "(Applause)", "(", ")", "\"", "\n "]
 
-    repl = ["\n", "", patts[4] + "\n", patts[5] + "\n"]
+    repl = ["\n", "", "Laughter\n", "Applause\n"]
 
     df['clean_transcripts'] = df.transcript.str.replace(patts[0], repl[0])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[1], repl[0])
@@ -22,9 +22,13 @@ def main():
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[3], repl[1])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[4], repl[2])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[5], repl[3])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[6], repl[1])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[7], repl[1])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[8], repl[1])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[9], repl[0])
     
     df.to_csv(filepath + target_filename)
-    print('Your new .csv has been written to {}{}'.format(filepath 
+    print('Your new .csv has been written to {}'.format(filepath 
         + target_filename))
 
 if __name__ == "__main__":
