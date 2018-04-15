@@ -3,6 +3,7 @@
 #Author: John Sigmon
 # Last updated: April 11, 2018
 
+import finalStrip
 
 def main():
     print("Joining data sets")
@@ -18,7 +19,7 @@ def main():
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
     df.to_csv(filepath + dest_file)
     print('Your file was written to {}{}'.format(filepath, dest_file))
-
+    finalStrip.main()
 
 if __name__ == "__main__":
     main()
