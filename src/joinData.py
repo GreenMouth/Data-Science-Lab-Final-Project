@@ -15,6 +15,7 @@ def main():
     dfs = [pd.read_csv(filepath + file_1), pd.read_csv(filepath + file_2)]
     df = pd.concat(dfs, axis=1)
     df.drop(df.columns[0], axis=1, inplace=True)
+    df.drop(['Unnamed: 0'], axis=1, inplace=True)
     df.to_csv(filepath + dest_file)
     print('Your file was written to {}{}'.format(filepath, dest_file))
 
