@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Author: John Sigmon
-# Last updated: April 11, 2018
+# Last updated: April 14, 2018 by Kate Baumli
 
 import pandas as pd
 
@@ -27,6 +27,9 @@ def main():
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[8], repl[1])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[9], repl[0])
     
+    # Make everything lower case
+    df['clean_transcripts'] = df['clean_transcripts'].str.lower()
+
     df.to_csv(filepath + target_filename)
     print('Your new .csv has been written to {}'.format(filepath 
         + target_filename))
