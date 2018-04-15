@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import numpy as np
 import pandas as pd
 from keras import optimizers
@@ -17,7 +18,7 @@ test_samples = 100
 valid_samples = 100
 max_words = 103000
 
-embedding_dim = 1000
+embedding_dim = 100
 
 acc_plot_filename = 'accuracy.png'
 loss_plot_filename = 'loss.png'
@@ -78,7 +79,7 @@ model = Sequential()
 model.add(Embedding(max_words, embedding_dim, input_length=max_len))
 model.add(Flatten())
 model.add(Dense(32, activation='relu'))
-model.add(Dense(1, activation='relu'))
+model.add(Dense(10000, activation='relu'))
 model.summary()
 
 # Load the glove embeddings
@@ -86,7 +87,7 @@ model.layers[0].set_weights([embedding_matrix])
 model.layers[0].trainable = False
 
 # Training
-adam = keras.optimizers.Adam()
+adam = optimizers.Adam()
 model.compile(optimizer='adam',
             loss='mean_squared_error',
             metrics=['acc'])
