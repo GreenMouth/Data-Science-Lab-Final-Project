@@ -3,6 +3,9 @@
 *checkpoint*
 .jupyter
 
+# Ignore datasets
+data/*
+
 # Ignore virtualenv 
 bin
 include
