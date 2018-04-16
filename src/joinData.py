@@ -4,6 +4,8 @@
 # Last updated: April 11, 2018
 
 import finalStrip
+import analyzeTFID
+import analyzeSentiment
 
 def main():
     print("Joining data sets")
@@ -17,6 +19,10 @@ def main():
     df = pd.concat(dfs, axis=1)
     df.drop(df.columns[0], axis=1, inplace=True)
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
+    vectors = analyzeTFID.getVectors(df)
+    analyzeTFID.writeFile(filepath + file_1, vectors)
+    scoresDF = getSentimentScores(df)
+    df = pd.concat([df, scoresDF], axis= 1)
     df.to_csv(filepath + dest_file)
     print('Your file was written to {}{}'.format(filepath, dest_file))
     finalStrip.main()
