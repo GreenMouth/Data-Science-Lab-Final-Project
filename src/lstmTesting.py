@@ -24,7 +24,7 @@ def prepSequences(rawText, encoding, sequenceLength = 100):
 
     return data, targets
 
-def prepX(data):
+def prepX(data, lengthOfSequence):
     data = np.reshape(data, (len(data), lengthOfSequence, 1))
     data = data / float(uniqueChars)
     return data
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     lengthOfSequence = 100
     data, targets = prepSequences(script1, charsToInt, sequenceLength = lengthOfSequence)
-    preppedX = prepX(data)
+    preppedX = prepX(data, lengthOfSequence)
     preppedY = prepY(targets)
     #model = trainModel(preppedX, preppedY)
 
