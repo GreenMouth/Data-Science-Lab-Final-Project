@@ -24,7 +24,7 @@ def prepSequences(rawText, encoding, sequenceLength = 100):
 
     return data, targets
 
-def prepX(data, lengthOfSequence):
+def prepX(data, lengthOfSequence, uniqueChars):
     data = np.reshape(data, (len(data), lengthOfSequence, 1))
     data = data / float(uniqueChars)
     return data
@@ -39,6 +39,7 @@ def generateModel(X, y):
     model.add(Dropout(0.2))
     model.add(Dense(y.shape[1], activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer='adam')
+    return model
 
 def trainModel(X, y):
     model = generateModel(X, y)
@@ -82,16 +83,16 @@ if __name__ == "__main__":
 
     lengthOfSequence = 100
     data, targets = prepSequences(script1, charsToInt, sequenceLength = lengthOfSequence)
-    preppedX = prepX(data, lengthOfSequence)
+    preppedX = prepX(data, lengthOfSequence, uniqueChars)
     preppedY = prepY(targets)
-    #model = trainModel(preppedX, preppedY)
+    model = trainModel(preppedX, preppedY)
 
     ###generation through here
-    #filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
-    #model.load_weights(filename)
-    #model.compile(loss='categorical_crossentropy', optimizer='adam')
+    filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
+    model.load_weights(filename)
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
     
     intToChar = dict((i, char) for i, char in enumerate(chars))
     seed = generateSeedFromData(data)
     numCharacters= 100
-    #text = generateText(model, seed, intToChar, length= numCharacters, vocabSize= uniqueChars)
+    text = generateText(model, seed, intToChar, length= numCharacters, vocabSize= uniqueChars)
