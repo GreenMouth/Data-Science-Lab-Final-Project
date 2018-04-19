@@ -10,6 +10,8 @@ def main():
     filepath = '../data/kaggle-data/'
     data = pd.read_csv(filepath + filename)
     data = data.dropna(subset=['clean_transcripts'])
+    data = data.dropna(subset=['transcript'])
+    #print(data.transcript.isnull().sum())
     data['stripped_transcripts'] = [row.clean_transcripts.split() for row in data.itertuples()]    
     _ = data.to_csv(filepath + filename)
     print("File written to {}".format(filepath + filename))

@@ -2,20 +2,21 @@
 
 # Author John Sigmon
 
-DATA_DIR="../data/kaggle-data/"
+DATA_DIR="../../data/kaggle-data/"
+SCRIPT_DIR="data-cleaning/"
 TMP="tmp"
 ZIP_URL="http://nlp.stanford.edu/data/wordvecs/glove.6B.zip"
 FLAG=$1
 
 if ! [ -e $DATA_DIR"clean_transcripts.csv" ]
 then
-    python3 cleanText.py
+    python3 "$SCRIPT_DIR"cleanText.py
     printf "\n"
 fi
 
 if ! [ -e $DATA_DIR"merged_data.csv" ]
 then
-    python3 joinData.py
+    python3 "$SCRIPT_DIR"joinData.py
     printf "\n"
 fi
 
