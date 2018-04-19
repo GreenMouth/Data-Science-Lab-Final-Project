@@ -8,8 +8,9 @@ from sklearn.feature_extraction import text
 
 def getVectors(dataFrame):
     scripts = dataFrame['transcript'].tolist()
-    print(len(scripts))
-    print(dataFrame['transcript'])
+    #print(len(scripts))
+    #print(dataFrame['transcript'])
+    #print(dataFrame.transcript.isnull().sum())
     tfidfGenerator = text.TfidfVectorizer(input= scripts, stop_words= "english")
     matrix = tfidfGenerator.fit_transform(scripts)
     return matrix
@@ -24,11 +25,15 @@ def writeFile(fileName, vectors):
             line = line + '\n'
             file.write(line)
 
-if __name__ == "__main__":
+def main():
     #fileName = sys.argv[0]
-    fileName = "clean_transcripts.csv"
+    filepath = "../data/kaggle-data/"
+    fileName = "merged_data.csv"
     print("Generating TFID vectors...")
-    dataFrame = pd.read_csv(fileName)
+    dataFrame = pd.read_csv(filepath + fileName)
     vectors = getVectors(dataFrame)
-    writeFile(fileName, vectors)
-    print("Wrote TFIFD data to {}".format(fileName[:-4] + "_vectors.csv"))
+    writeFile(filepath + fileName, vectors)
+    print("Wrote TFIFD data to {}".format(filepath + fileName[:-4] + "_vectors.csv"))
+
+if __name__ == "__main__":
+    main()

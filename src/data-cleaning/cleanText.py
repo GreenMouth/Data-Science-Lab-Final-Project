@@ -11,11 +11,13 @@ def main():
     filepath = '../data/kaggle-data/'
 
     df = pd.read_csv(filepath + filename)
-
-    patts = [".", "?", "!", "\'", "(Laughter)", "(Applause)", "(", ")", "\"", "\n "]
-
+    
+    # Remove non-ascii first
+    df.transcript.replace({r'[^\x00-\x7F]+':''}, regex=True, inplace=True)
+    patts = [".", "?", "!", "\'", "(Laughter)", "(Applause)", "(", ")", "\"", "\n ", "-", ";", ":"]
     repl = ["\n", "", "Laughter\n", "Applause\n"]
 
+    # Replace everything
     df['clean_transcripts'] = df.transcript.str.replace(patts[0], repl[0])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[1], repl[0])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[2], repl[0])
@@ -25,7 +27,9 @@ def main():
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[6], repl[1])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[7], repl[1])
     df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[8], repl[1])
-    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[9], repl[0])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[9], repl[1])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[10], repl[1])
+    df['clean_transcripts'] = df.clean_transcripts.str.replace(patts[11], repl[1])
     
     # Make everything lower case
     df['clean_transcripts'] = df['clean_transcripts'].str.lower()

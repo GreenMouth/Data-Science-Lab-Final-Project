@@ -16,14 +16,17 @@ def getSentimentScores(dataFrame):
     subjects = {'polarity': polarities, 'subjectivity': subjectivity}
     return pd.DataFrame(data= subjects)
     
-
-if __name__ == "__main__":
+def main():
     #fileName = sys.argv[0]
+    filepath = "../data/kaggle-data/"
     fileName = "merged_data.csv"
     print("Analyzing sentiment...")
-    dataFrame = pd.read_csv(fileName)
+    dataFrame = pd.read_csv(filepath + fileName)
     scoresDF = getSentimentScores(dataFrame)
     merged = pd.concat([dataFrame, scoresDF], axis= 1)
     merged[['polarity', 'subjectivity']].fillna(value = 0)
-    merged.to_csv(fileName)
-    print("Rewrote data back to {}".format(fileName))
+    merged.to_csv(filepath + fileName)
+    print("Rewrote data back to {}".format(filepath + fileName))
+
+if __name__ == "__main__":
+    main()
