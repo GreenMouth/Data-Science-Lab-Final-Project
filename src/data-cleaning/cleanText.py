@@ -33,7 +33,7 @@ def main():
     
     # Make everything lower case
     df['clean_transcripts'] = df['clean_transcripts'].str.lower()
-
+    
     df.to_csv(filepath + target_filename)
     print('Your new .csv has been written to {}'.format(filepath 
         + target_filename))

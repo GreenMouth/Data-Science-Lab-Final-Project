@@ -13,12 +13,13 @@ def main():
     filepath = '../data/kaggle-data/'
     file_1 = 'clean_transcripts.csv'
     file_2 = 'ted_main.csv'
-    dest_file = 'merged_data.csv'
+    filename = 'merged_data.csv'
 
     dfs = [pd.read_csv(filepath + file_1), pd.read_csv(filepath + file_2)]
     df = pd.concat(dfs, axis=1)
     df.drop(df.columns[0], axis=1, inplace=True)
     df.drop(['Unnamed: 0'], axis=1, inplace=True)
+    df.to_csv(filepath + filename)
     finalStrip.main()
     analyzeTFID.main()
     #vectors = analyzeTFID.getVectors(df)
@@ -27,7 +28,7 @@ def main():
     #df = pd.concat([df, scoresDF], axis= 1)
     #df.to_csv(filepath + dest_file)
     analyzeSentiment.main()
-    print('Your file was written to {}{}'.format(filepath, dest_file))
+    print('Your file was written to {}{}'.format(filepath, filename))
 
 if __name__ == "__main__":
     main()
