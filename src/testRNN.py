@@ -13,9 +13,9 @@ import matplotlib.pyplot as plt
 
 ############################ Parameters #######################################
 max_len = 10000                         
-train_samples = 100
-test_samples = 100
-valid_samples = 100
+train_samples = 1000
+test_samples = 1000
+valid_samples = 1000
 max_words = 103000
 
 embedding_dim = 100
@@ -93,7 +93,7 @@ model.compile(optimizer='adam',
             metrics=['acc'])
 history = model.fit(X_train, y_train,
                     epochs=10,
-                    batch_size=32,
+                    batch_size=50,
                     validation_data=(X_test, y_test))
 model.save_weights(weights_filename)
 
