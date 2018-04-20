@@ -3,8 +3,9 @@
 import os
 import numpy as np
 import pandas as pd
+import gender_guesser.detector as gender
 from keras import optimizers
-from keras.layers import Embedding, Flatten, Dense
+from keras.layers import Activation, Embedding, Flatten, Dense, Dropout
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
@@ -13,13 +14,11 @@ import matplotlib.pyplot as plt
 
 ############################ Parameters #######################################
 max_len = 10000                         
-train_samples = 1000
-test_samples = 1000
-valid_samples = 1000
+train_samples = 1800
+test_samples = 250 
+valid_samples = 250
 max_words = 103000
-
 embedding_dim = 100
-
 acc_plot_filename = 'accuracy.png'
 loss_plot_filename = 'loss.png'
 weights_filename = 'glove_model_01.h5'
@@ -31,6 +30,39 @@ filename = 'merged_data.csv'
 
 # Load the data
 df = pd.read_csv(data_filepath + filename)
+genDetector = gender.Detector()
+speaker_names = df.main_speaker.tolist()
+
+print ("Gathering gender data and adding it to data set...")
+
+# Get gender data
+first_names = []
+genders = []
+for name in speaker_names:
+    first_last = name.split(' ')
+    first = first_last[0]
+    first_names.append(first)
+    genders.append(genDetector.get_gender(first))
+
+for i, gender in enumerate(genders):
+    if gender == 'mostly_male':
+        genders[i] = 'male'
+    if gender == 'mostly_female':
+        genders[i] = 'female'
+    if gender == 'andy':
+        genders[i] = 'unknown'
+
+print("Current number of data points is {}".format(df.shape[0]))
+print("Dropping unknown genders from data set...")
+df['gender'] = genders
+df = df[df.gender != 'unknown']
+print("After dropping, there are {} data points".format(df.shape[0]))
+
+# Convert to 0 and 1
+#pd.Series(np.where(df.gender.values == 'male', 1, 0), df.index)
+df.replace('male', 0, inplace=True)
+df.replace('female', 1, inplace=True)
+print("Labels converted to {}".format(type(df.gender.values)))
 
 # Get a list of strings
 transcripts = [row.clean_transcripts for row in df.itertuples()]
@@ -44,15 +76,17 @@ print("Found {} unique tokens".format(len(word_index)))
 
 # Extract features and labels
 data = pad_sequences(sequences, maxlen=max_len)
-labels = df.views.values
+labels = df.gender.values
 print("Shape of features: {}".format(data.shape))
 print("Shape of labels:   {}".format(labels.shape))
 
 # Get training and validation sets
 X_train = data[:train_samples]
-y_train = data[:train_samples]
+y_train = labels[:train_samples]
 X_test = data[train_samples:(train_samples + test_samples)]
-y_test = data[train_samples:(train_samples + test_samples)]
+y_test = labels[train_samples:(train_samples + test_samples)]
+print("Data shapes are:\nX_train = {}\ny_train = {}\nX_test = {}\ny_test = {}"
+        .format(X_train.shape, y_train.shape, X_test.shape, y_test.shape))
 
 # Get embeddings
 embeddings_index = {}
@@ -78,8 +112,10 @@ for word, i in word_index.items():
 model = Sequential()
 model.add(Embedding(max_words, embedding_dim, input_length=max_len))
 model.add(Flatten())
-model.add(Dense(32, activation='relu'))
-model.add(Dense(10000, activation='relu'))
+model.add(Dense(80, activation='tanh'))
+model.add(Dropout(0.5))
+#model.add(Dense(80, activation='tanh'))
+model.add(Dense(1, activation='sigmoid'))
 model.summary()
 
 # Load the glove embeddings
@@ -89,7 +125,7 @@ model.layers[0].trainable = False
 # Training
 adam = optimizers.Adam()
 model.compile(optimizer='adam',
-            loss='mean_squared_error',
+            loss='binary_crossentropy',
             metrics=['acc'])
 history = model.fit(X_train, y_train,
                     epochs=10,
