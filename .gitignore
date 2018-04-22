@@ -6,6 +6,9 @@
 # Ignore datasets
 data/*
 
+# model weights
+*.h5
+
 # Ignore virtualenv 
 bin
 include
