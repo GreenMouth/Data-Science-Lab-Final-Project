@@ -41,37 +41,39 @@ def generateModel(X, y):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     return model
 
-def trainModel(X, y):
-    model = generateModel(X, y)
-
-    filepath="weights-improvement-{epoch:02d}-{loss:.4f}.hdf5" #replace with lowest loss file
+def trainModel(model, X, y, epochNum= 20):
+    filepath="weights-improvement-{epoch:02d}-{loss:.4f}.hdf5" 
     checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
 
-    model.fit(X, y, epochs=20, batch_size=128, callbacks=callbacks_list)
+    model.fit(X, y, epochs= epochNum, batch_size=128, callbacks=callbacks_list)
     return model
 
 def generateSeedFromData(data):
     start = np.random.randint(0, len(data)-1)
     pattern = data[start]
+    print("Starting Seed: ", ''.join([intToChar[value] for value in pattern]), end= '\n\n\n')
     return pattern
 
-def generateText(model, seed, decoding, length= 1000, uniqueChars= 47):
+def generateText(model, pattern, decoding, length= 1000, vocabSize= 47):
+    text= ''
     for i in range(length):
-        seed = prepSeed(seed)
-        prediction = model.predict(seed, verbose= 0)
+        preppedPattern = prepSeed(pattern, vocabSize)
+        prediction = model.predict(preppedPattern, verbose= 0)
         index = np.argmax(prediction)
         result = decoding[index]
-        seed.append(index)
+        print('here: {0}\n{1}\n{2}'.format(prediction, index, result), end='\n\n\n')
+        text += result
+        pattern.append(index)
+        pattern = pattern[1:]
         
-    text = [intToChar[value] for value in seed]
-    return ''.join(text)
-    
+    return text
 
-def prepSeed(seed, vocabSize)
-    seed = np.reshape(seed, (1, len(seed), 1))
-    seed = seed / float(uniqueChars)
-    return seed
+
+def prepPattern(pattern, vocabSize):
+    pattern = np.reshape(pattern, (1, len(pattern), 1))
+    pattern = pattern / float(vocabSize)
+    return pattern
 
 if __name__ == "__main__":
     allScripts = getData()
@@ -85,14 +87,16 @@ if __name__ == "__main__":
     data, targets = prepSequences(script1, charsToInt, sequenceLength = lengthOfSequence)
     preppedX = prepX(data, lengthOfSequence, uniqueChars)
     preppedY = prepY(targets)
-    model = trainModel(preppedX, preppedY)
+    model = generateModel(preppedX, preppedY)
+    model = trainModel(model, preppedX, preppedY, 1)
 
     ###generation through here
     filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
     model.load_weights(filename)
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     
-    intToChar = dict((i, char) for i, char in enumerate(chars))
-    seed = generateSeedFromData(data)
-    numCharacters= 100
-    text = generateText(model, seed, intToChar, length= numCharacters, vocabSize= uniqueChars)
+    intToChar = dict((i, char) for i, char in enumerate(chars))  #creating a demapping of our original encoding
+    seed = generateSeedFromData(data) #get a random starting point from our paper and let the network continue the writing
+    numCharacters= 100   #length of each window the network will use to predict the output
+    text = generateText(model, seed, intToChar, length= numCharacters, vocabSize= numUniqueChars)
+    print(text)
