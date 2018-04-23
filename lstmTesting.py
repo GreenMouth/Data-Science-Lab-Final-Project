@@ -41,12 +41,12 @@ def generateModel(X, y):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     return model
 
-def trainModel(model, X, y):
+def trainModel(model, X, y, epochNum= 20):
     filepath="weights-improvement-{epoch:02d}-{loss:.4f}.hdf5" 
     checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
 
-    model.fit(X, y, epochs=20, batch_size=128, callbacks=callbacks_list)
+    model.fit(X, y, epochs= epochNum, batch_size=128, callbacks=callbacks_list)
     return model
 
 def generateSeedFromData(data):
@@ -87,7 +87,8 @@ if __name__ == "__main__":
     data, targets = prepSequences(script1, charsToInt, sequenceLength = lengthOfSequence)
     preppedX = prepX(data, lengthOfSequence, uniqueChars)
     preppedY = prepY(targets)
-    model = trainModel(preppedX, preppedY)
+    model = generateModel(preppedX, preppedY)
+    model = trainModel(model, preppedX, preppedY, 1)
 
     ###generation through here
     filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
