@@ -24,18 +24,20 @@ def prepSequences(rawText, encoding, sequenceLength = 100):
 
     return data, targets
 
-def prepX(data, lengthOfSequence, uniqueChars):
+def prepX(data, lengthOfSequence, numUniqueChars):
     data = np.reshape(data, (len(data), lengthOfSequence, 1))
-    data = data / float(uniqueChars)
+    data = data / float(numUniqueChars)
     return data
 
 def prepY(targets):
     targets = np_utils.to_categorical(targets)
     return targets
 
-def generateModel(X, y):
+def generateModel(X, y, size= 256):
     model = Sequential()
-    model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2])))
+    model.add(LSTM(size, input_shape=(X.shape[1], X.shape[2]), return_sequences=True))
+    model.add(Dropout(0.2))
+    model.add(LSTM(size))
     model.add(Dropout(0.2))
     model.add(Dense(y.shape[1], activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer='adam')
@@ -91,9 +93,9 @@ if __name__ == "__main__":
     model = trainModel(model, preppedX, preppedY, 1)
 
     ###generation through here
-    filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
-    model.load_weights(filename)
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    #filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
+    #model.load_weights(filename)
+    #model.compile(loss='categorical_crossentropy', optimizer='adam')
     
     intToChar = dict((i, char) for i, char in enumerate(chars))  #creating a demapping of our original encoding
     seed = generateSeedFromData(data) #get a random starting point from our paper and let the network continue the writing
