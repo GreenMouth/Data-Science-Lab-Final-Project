@@ -4,7 +4,7 @@ from lstmTesting import *
 
 if __name__ == "__main__":
     allScripts = getData()
-    script1 = '\n'.join(allScripts)
+    script1 = ' '.join(allScripts[:3])
     #script1 = allScripts[0]
     
     chars = sorted(list(set(script1)))
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     preppedY = prepY(targets)
     
     model = generateModel(preppedX, preppedY)
-    model = trainModel(model, preppedX, preppedY, numEpochs= 60)
+    model = trainModel(model, preppedX, preppedY, numEpochs= 30)
 
     ###uncomment to load best weights
     #filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file

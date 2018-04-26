@@ -4,7 +4,7 @@ from lstmTesting import *
 
 if __name__ == "__main__":
     allScripts = getData()
-    transcript = "\n".join(allScripts)
+    transcript = ' '.join(allScripts[:3])
     #transcript = allScripts[0]
     uniqueWords = sorted(transcript.split(' '))
     numUniqueWords = len(uniqueWords)
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     preppedY = prepY(targets)
 
     model = generateModel(preppedX, preppedY, size= 512)
-    model = trainModel(model, preppedX, preppedY, numEpochs= 60)
+    model = trainModel(model, preppedX, preppedY, numEpochs= 30)
 
 
     intToString = dict((i, word) for i, word in enumerate(uniqueWords))  #creating a demapping of our original encoding
