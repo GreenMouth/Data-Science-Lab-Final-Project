@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from setup import *
+from forward import *
 import numpy as np
 import pandas as pd
 import gender_guesser.detector as gender

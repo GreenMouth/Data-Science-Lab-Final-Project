@@ -14,5 +14,7 @@ git clone https://github.com/jsigee87/$GITDIR.git
 mv $GITDIR $DESIREDDIR
 python3 -m virtualenv $DESIREDDIR
 cd $DESIREDDIR
-
+. bin/activate
+cd src
+bash clean.sh
 
