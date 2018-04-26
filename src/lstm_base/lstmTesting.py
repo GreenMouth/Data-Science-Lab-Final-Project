@@ -9,8 +9,8 @@ from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 
-def getData(fileName= 'clean_transcripts.csv'):
-    dataFrame = pd.read_csv(fileName)
+def getData(filePath = '../../data/kaggle-data/', fileName= 'clean_transcripts.csv'):
+    dataFrame = pd.read_csv(filePath + fileName)
     allScripts = dataFrame['transcript'].tolist()
     allScripts = [script.lower() for script in allScripts]
     return allScripts

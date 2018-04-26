@@ -71,9 +71,12 @@ print("Labels converted to {}".format(type(df.gender.values)))
 # Get a list of strings
 transcripts = [row.clean_transcripts for row in df.itertuples()]
 
+# Truncate transcripts
+trunc_transcripts = [elem[:1000] for elem in transcripts]
+
 print("Running the LSTM ...")
 new_data = []
-for idx, transcript in enumerate(transcripts):
+for idx, transcript in enumerate(trunc_transcripts):
     new_data.extend(forward(transcript))
     if (idx % 2) == 0:
         print("Working on transcript number {}".format(idx))

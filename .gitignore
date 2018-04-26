@@ -2,6 +2,8 @@
 # Ignore autosaves/checkpoints
 *checkpoint*
 .jupyter
+*pycache*
+*.pyc
 
 # Ignore datasets
 data/*
