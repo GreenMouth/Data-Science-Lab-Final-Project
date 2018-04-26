@@ -74,9 +74,10 @@ transcripts = [row.clean_transcripts for row in df.itertuples()]
 print("Running the LSTM ...")
 new_data = []
 for idx, transcript in enumerate(transcripts):
-    new_data.append(forward(transcript))
+    new_data.extend(forward(transcript))
     if (idx % 2) == 0:
         print("Working on transcript number {}".format(idx))
+
 
 # Tokenize
 #tokenizer = Tokenizer(num_words=max_words)
