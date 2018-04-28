@@ -9,8 +9,10 @@ from keras.layers import LSTM
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 
-def getData(filePath = '../../data/kaggle-data/', fileName= 'clean_transcripts.csv'):
-    dataFrame = pd.read_csv(filePath + fileName)
+defaultFileName = "topWeights.hdf5"
+
+def getData(fileName= 'clean_transcripts.csv'):
+    dataFrame = pd.read_csv(fileName)
     allScripts = dataFrame['transcript'].tolist()
     allScripts = [script.lower() for script in allScripts]
     return allScripts
@@ -46,7 +48,7 @@ def generateModel(X, y, size= 256):
     return model
 
 def trainModel(model, X, y, numEpochs= 20, batchSize= 128):
-    filepath="weights-improvement-{epoch:02d}-{loss:.4f}.hdf5" #replace with lowest loss file
+    filepath= defaultFileName #replace with lowest loss file
     checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
 
@@ -54,7 +56,7 @@ def trainModel(model, X, y, numEpochs= 20, batchSize= 128):
     return model
 
 
-def loadModel(model, filename):  #replace with best weights file for your training
+def loadModel(model, filename= defaultFileName):  #replace with best weights file for your training
     model.load_weights(filename)
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     return model

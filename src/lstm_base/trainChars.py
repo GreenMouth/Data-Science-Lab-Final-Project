@@ -18,7 +18,7 @@ if __name__ == "__main__":
     
     model = generateModel(preppedX, preppedY)
     model = trainModel(model, preppedX, preppedY, numEpochs= 30)
-
+    model = loadModel(model)
     ###uncomment to load best weights
     #filename = "weights-improvement-19-1.9435.hdf5" #replace with best weights file
     #model.load_weights(filename)

@@ -17,12 +17,12 @@ if __name__ == "__main__":
     preppedY = prepY(targets)
 
     model = generateModel(preppedX, preppedY, size= 512)
-    model = trainModel(model, preppedX, preppedY, numEpochs= 30)
-
+    model = trainModel(model, preppedX, preppedY, numEpochs= 2)
+    model = loadModel(model)
 
     intToString = dict((i, word) for i, word in enumerate(uniqueWords))  #creating a demapping of our original encoding
     seed = generateSeedFromData(data) #get a random starting point from our paper and let the network continue the writing
-    numWords= 500   #length of each window the network will use to predict the output
+    numWords= 300   #length of each window the network will use to predict the output
     text = generateText(model, seed, intToString, length= numWords, vocabSize= numUniqueWords, delimeter= ' ')
     with open("generated_words.txt", 'w+') as file:
         file.write(text)
