@@ -17,11 +17,9 @@ import matplotlib.pyplot as plt
 
 ############################ Parameters #######################################
 max_len = 500                         
-train_samples = 1800
+train_samples = 1900
 test_samples = 250 
 valid_samples = 250
-max_words = 103000
-embedding_dim = 100
 acc_plot_filename = 'accuracy.png'
 loss_plot_filename = 'loss.png'
 weights_filename = 'glove_model_01.h5'
@@ -29,9 +27,9 @@ weights_filename = 'glove_model_01.h5'
 data_filepath = '../../data/kaggle-data/'
 filename = 'merged_data.csv'
 
-acc_plot_filename = 'lstm_accuracy_01.png'
-loss_plot_filename = 'lstm_loss_01.png'
-weights_filename = 'lstm_glove_model_01.h5'
+acc_plot_filename = 'lstm_accuracy_02.png'
+loss_plot_filename = 'lstm_loss_02.png'
+weights_filename = 'lstm_glove_model_02.h5'
 ###############################################################################
 
 # Load data
@@ -48,10 +46,10 @@ print("Data shapes are:\nX_train = {}\ny_train = {}\nX_test = {}\ny_test = {}"
 
 # Define the model
 model = Sequential()
-model.add(Dense(1024, activation='relu', input_dim=1024))
-model.add(Dropout(0.4))
+model.add(Dense(512, activation='relu', input_dim=1024))
+model.add(Dropout(0.7))
 model.add(Dense(512, activation='relu'))
-model.add(Dropout(0.4))
+model.add(Dropout(0.7))
 model.add(Dense(1, activation='sigmoid'))
 model.summary()
 
@@ -61,8 +59,8 @@ model.compile(optimizer='adam',
             loss='binary_crossentropy',
             metrics=['acc'])
 history = model.fit(X_train, y_train,
-			epochs=50,
-			batch_size=20,
+			epochs=60,
+			batch_size=80,
 			validation_data=(X_test, y_test))
 model.save_weights(weights_filename)
 
