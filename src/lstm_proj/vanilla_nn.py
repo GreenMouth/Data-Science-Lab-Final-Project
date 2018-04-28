@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from setup import *
+from forward import *
 import numpy as np
 import pandas as pd
 import gender_guesser.detector as gender
@@ -10,6 +10,8 @@ from keras.layers import Activation, Embedding, Flatten, Dense, Dropout, LSTM
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -33,8 +35,8 @@ weights_filename = 'lstm_glove_model_01.h5'
 ###############################################################################
 
 # Load data
-data = np.load('data')
-labels = np.load('labels')
+data = np.load('data.npy')
+labels = np.load('labels.npy')
 
 # Split the data
 X_train = data[:train_samples]
@@ -44,40 +46,14 @@ y_test = labels[train_samples:(train_samples + test_samples)]
 print("Data shapes are:\nX_train = {}\ny_train = {}\nX_test = {}\ny_test = {}"
         .format(X_train.shape, y_train.shape, X_test.shape, y_test.shape))
 
-# Get embeddings
-#embeddings_index = {}
-#f = open(os.path.join(data_filepath, 'glove.6B.100d.txt'))
-#for line in f:
-#    values = line.split()
-#    word = values[0]
-#    coefs = np.asarray(values[1:], dtype='float32')
-#    embeddings_index[word] = coefs
-#f.close()
-
-#print('Found {} word vectors'.format(len(embeddings_index)))
-
-# Make embeddings matrix
-#embedding_matrix = np.zeros((max_words, embedding_dim))
-#for word, i in word_index.items():
-#    if i < max_words:
-#        embedding_vector = embeddings_index.get(word)
-#        if embedding_vector is not None:
-#            embedding_matrix[i] = embedding_vector
-
 # Define the model
 model = Sequential()
-model.add(Embedding(max_words, embedding_dim, input_length=max_len))
-#model.add(Flatten())
-model.add(LSTM(100, activation='tanh'))
-model.add(Dropout(0.3))
-model.add(LSTM(100, activation='tanh'))
-model.add(Dropout(0.3))
+model.add(Dense(1024, activation='relu', input_dim=1024))
+model.add(Dropout(0.4))
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.4))
 model.add(Dense(1, activation='sigmoid'))
 model.summary()
-
-# Load the glove embeddings
-#model.layers[0].set_weights([embedding_matrix])
-#model.layers[0].trainable = False
 
 # Training
 adam = optimizers.Adam()
@@ -85,4 +61,26 @@ model.compile(optimizer='adam',
             loss='binary_crossentropy',
             metrics=['acc'])
 history = model.fit(X_train, y_train,
-                    epochs=50,
+			epochs=50,
+			batch_size=20,
+			validation_data=(X_test, y_test))
+model.save_weights(weights_filename)
+
+# Save Plot
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(1, len(acc) + 1)
+plt.plot(epochs, acc, 'bo', label = 'Training Accuracy')
+plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.legend()
+plt.savefig(acc_plot_filename)
+
+plt.plot(epochs, loss, 'bo', label = 'Training Loss')
+plt.plot(epochs, val_loss, 'b', label = 'Validation Loss')
+plt.title('Training and Validation Accuracy')
+plt.legend()
+plt.savefig(loss_plot_filename)
