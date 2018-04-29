@@ -6,7 +6,7 @@ if __name__ == "__main__":
     allScripts = getData()
     transcript = ' '.join(allScripts[:5])
     #transcript = allScripts[0]
-    uniqueWords = sorted(transcript.split(' '))
+    uniqueWords = sorted(set(transcript.split(' ')))
     numUniqueWords = len(uniqueWords)
     stringToInt = dict((string, i) for i, string in enumerate(uniqueWords))
 
