@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import gender_guesser.detector as gender
 from keras import optimizers
-from keras.layers import Activation, Embedding, Flatten, Dense, Dropout, LSTM
+from keras.layers import Activation, Embedding, Flatten, Dense, Dropout, LSTM, Conv1D
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
@@ -44,11 +44,18 @@ y_test = labels[train_samples:(train_samples + test_samples)]
 print("Data shapes are:\nX_train = {}\ny_train = {}\nX_test = {}\ny_test = {}"
         .format(X_train.shape, y_train.shape, X_test.shape, y_test.shape))
 
-# Define the model
+#embedding_layer = Embedding(len word index + 1,
+#                            1024,
+#                            weights = data,
+
+# Define the mode
 model = Sequential()
-model.add(Dense(512, activation='relu', input_dim=1024))
+
+#model.add(Dense(512, activation='relu', input_dim=1024))
+model.add.Conv1D()
 model.add(Dropout(0.7))
-model.add(Dense(512, activation='relu'))
+#model.add(Dense(512, activation='relu'))
+model.addConv1D()
 model.add(Dropout(0.7))
 model.add(Dense(1, activation='sigmoid'))
 model.summary()
