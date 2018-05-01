@@ -25,9 +25,9 @@ test_samples = 250
 data_filepath = '../../data/kaggle-data/'
 filename = 'merged_data.csv'
 
-acc_plot_filename = 'lstm_accuracy_05.png'
-loss_plot_filename = 'lstm_loss_05.png'
-weights_filename = 'lstm_glove_model_05.h5'
+acc_plot_filename = 'lstm_accuracy_06.png'
+loss_plot_filename = 'lstm_loss_06.png'
+weights_filename = 'lstm_glove_model_06.h5'
 ###############################################################################
 '''
 df = pd.read_csv(data_filepath + filename)
@@ -97,8 +97,8 @@ model.compile(optimizer='sgd',
             loss='binary_crossentropy',
             metrics=['acc'])
 history = model.fit(X_train, y_train,
-			epochs=100,
-			batch_size=200,
+			epochs=300,
+			batch_size=600,
 			validation_data=(X_test, y_test))
 model.save_weights(weights_filename)
 
@@ -113,10 +113,12 @@ plt.plot(epochs, acc, 'bo', label = 'Training Accuracy')
 plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
 plt.title('Training and Validation Accuracy')
 plt.legend()
-plt.savefig(acc_plot_filename)
+#plt.savefig(acc_plot_filename)
 
-plt.plot(epochs, loss, 'ro', label = 'Training Loss')
-plt.plot(epochs, val_loss, 'r', label = 'Validation Loss')
+plt.plot(epochs, loss, 'ro', label = 'Training Cross Entropy Loss')
+plt.plot(epochs, val_loss, 'r', label = 'Validation Cross Entropy Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss or Accuracy')
 plt.title('Training and Validation Loss')
 plt.legend()
 plt.savefig(loss_plot_filename)
