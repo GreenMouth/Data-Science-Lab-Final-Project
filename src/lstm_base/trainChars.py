@@ -4,7 +4,7 @@ from lstmTesting import *
 
 if __name__ == "__main__":
     allScripts = getData()
-    script1 = ' '.join(allScripts[:1])
+    script1 = ' '.join(allScripts[:5])
     #script1 = allScripts[0]
     
     chars = sorted(list(set(script1)))
