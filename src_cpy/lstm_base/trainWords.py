@@ -10,14 +10,14 @@ if __name__ == "__main__":
     numUniqueWords = len(uniqueWords)
     stringToInt = dict((string, i) for i, string in enumerate(uniqueWords))
 
-    lengthOfSequence = 10
+    lengthOfSequence = 30
     words = transcript.split(" ")
     data, targets = prepSequences(words, stringToInt, lengthOfSequence)
     preppedX = prepX(data, lengthOfSequence, numUniqueWords)
     preppedY = prepY(targets)
 
     model = generateModel(preppedX, preppedY, size= 512)
-    model = trainModel(model, preppedX, preppedY, numEpochs= 200)
+    model = trainModel(model, preppedX, preppedY, numEpochs= 150)
     model = loadModel(model)
 
     intToString = dict((i, word) for i, word in enumerate(uniqueWords))  #creating a demapping of our original encoding

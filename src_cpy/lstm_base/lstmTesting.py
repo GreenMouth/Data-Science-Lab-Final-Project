@@ -11,7 +11,7 @@ from keras.utils import np_utils
 
 defaultFileName = "topWeights.hdf5"
 
-def getData(filePath = '../../../data/kaggle-data/', fileName= 'clean_transcripts.csv'):
+def getData(filePath = '../../data/kaggle-data/', fileName= 'clean_transcripts.csv'):
     dataFrame = pd.read_csv(filePath + fileName)
     allScripts = dataFrame['transcript'].tolist()
     allScripts = [script.lower() for script in allScripts]

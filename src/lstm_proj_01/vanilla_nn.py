@@ -2,7 +2,7 @@
 
 import os
 from forward import *
-from AUCCallback import *
+#from AUCCallback import *
 import numpy as np
 import pandas as pd
 import gender_guesser.detector as gender
@@ -86,6 +86,8 @@ class AUCLoss(Callback):
 
 if __name__ == '__main__':
     data = np.load('data.npy')#pad_sequences(sequences, maxlen=max_len)
+    metadata = np.load('metadata.npy')
+    data = np.concatenate((data, metadata), axis=1)
     labels = np.load('labels.npy')
 
     # Split the data
@@ -100,14 +102,14 @@ if __name__ == '__main__':
     model = Sequential()
     #model.add(Embedding(2152, 1024, input_length=max_len))
     #model.add(Flatten())
-    model.add(Dense(512, activation='tanh', use_bias=True, input_shape=(1024,)))
-    model.add(Dropout(0.5))
-    #model.add(Dense(256, activation='relu', use_bias=True))
-    #model.add(Dropout(0.5))
+    model.add(Dense(512, activation='relu', use_bias=True, input_shape=(1045,)))
+    model.add(Dropout(0.2))
+    model.add(Dense(512, activation='relu', use_bias=True))
+    model.add(Dropout(0.2))
     #model.add(Dense(128, activation='relu', use_bias=True))
     #model.add(Dropout(0.5))
-    #model.add(Dense(512, activation='relu'))
-    #model.add(Dropout(0.7))
+    model.add(Dense(512, activation='relu'))
+    model.add(Dropout(0.2))
     model.add(Dense(1, activation='sigmoid'))
     model.summary()
 
@@ -127,7 +129,7 @@ if __name__ == '__main__':
 
     model.fit(X_train, y_train,
                             epochs=num_epochs,
-                            batch_size=500,
+                            batch_size=1900,
                             callbacks=[aucloss])
     model.save_weights(weights_filename)
 
