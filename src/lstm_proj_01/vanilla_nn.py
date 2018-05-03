@@ -127,38 +127,38 @@ if __name__ == '__main__':
                 metrics=['acc'])
     aucloss = AUCLoss(validation_data=(X_test, y_test)) 
 
-    model.fit(X_train, y_train,
+    history = model.fit(X_train, y_train,
                             epochs=num_epochs,
                             batch_size=1900,
                             callbacks=[aucloss])
     model.save_weights(weights_filename)
 
     # Save Plot
-    #acc = history.history['acc']
-    #val_acc = history.history['val_acc']
-    #loss = history.history['loss']
-    #val_loss = history.history['val_loss']
-    '''
-    epochs = range(1, len(acc) + 1)
-    plt.plot(epochs, acc, 'b-', label = 'Training Accuracy')
-    plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
-    plt.title('Training and Validation Accuracy')
-    plt.legend()
+    acc = history.history['acc']
+    val_acc = history.history['val_acc']
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    
+    #epochs = range(1, len(acc) + 1)
+    plt.plot(epochs, acc, 'b', label = 'Training Accuracy')
+    plt.plot(epochs, val_acc, 'b:', label = 'Validation Accuracy')
+    #plt.title('Training and Validation Accuracy')
+    #plt.legend()
     #plt.savefig(acc_plot_filename)
 
-    plt.plot(epochs, loss, 'r-', label = 'Training Cross Entropy Loss')
-    plt.plot(epochs, val_loss, 'r', label = 'Validation Cross Entropy Loss')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss or Accuracy')
-    plt.title('Training and Validation Loss')
-    plt.legend()
-    plt.savefig(loss_plot_filename)
-    '''
+    plt.plot(epochs, loss, 'r', label = 'Training Cross Entropy Loss')
+    plt.plot(epochs, val_loss, 'r:', label = 'Validation Cross Entropy Loss')
+    #plt.xlabel('Epochs')
+    #plt.ylabel('Loss or Accuracy')
+    #plt.title('Training and Validation Loss')
+    #plt.legend()
+    #plt.savefig(loss_plot_filename)
+    
     epochs = range(1, len(aucloss.auc_test) + 1)
-    plt.plot(epochs, aucloss.auc_test, 'b-', label = 'Validation AUC')
+    plt.plot(epochs, aucloss.auc_test, 'g:', label = 'Validation AUC')
     #plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
     plt.xlabel('Epochs')
-    plt.ylabel('AUC')
+    plt.ylabel('Metric Performance')
     plt.title('Validation AUC')
     plt.legend()
-    plt.savefig('auc')
+    plt.savefig('slides')
