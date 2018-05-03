@@ -155,7 +155,7 @@ if __name__ == '__main__':
     #plt.title('Training and Validation Loss')
     #plt.legend()
     #plt.savefig(loss_plot_filename)
-    
+    plt.plot(epochs, aucloss.auc_test, 'g:', label='Validation AUC')
     #plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
     plt.xlabel('Epochs')
     plt.ylabel('Metric Performance')
