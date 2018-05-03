@@ -86,8 +86,8 @@ class AUCLoss(Callback):
 
 if __name__ == '__main__':
     data = np.load('data.npy')#pad_sequences(sequences, maxlen=max_len)
-    metadata = np.load('metadata.npy')
-    data = np.concatenate((data, metadata), axis=1)
+    #metadata = np.load('metadata.npy')
+    #data = np.concatenate((data, metadata), axis=1)
     labels = np.load('labels.npy')
 
     # Split the data
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     model = Sequential()
     #model.add(Embedding(2152, 1024, input_length=max_len))
     #model.add(Flatten())
-    model.add(Dense(512, activation='relu', use_bias=True, input_shape=(1045,)))
+    model.add(Dense(512, activation='relu', use_bias=True, input_shape=(1024,)))
     model.add(Dropout(0.2))
     model.add(Dense(512, activation='relu', use_bias=True))
     model.add(Dropout(0.2))
@@ -130,7 +130,8 @@ if __name__ == '__main__':
     history = model.fit(X_train, y_train,
                             epochs=num_epochs,
                             batch_size=1900,
-                            callbacks=[aucloss])
+                            callbacks=[aucloss],
+                            validation_data=(X_test, y_test))
     model.save_weights(weights_filename)
 
     # Save Plot
@@ -139,6 +140,7 @@ if __name__ == '__main__':
     loss = history.history['loss']
     val_loss = history.history['val_loss']
     
+    epochs = range(1, len(aucloss.auc_test) + 1)
     #epochs = range(1, len(acc) + 1)
     plt.plot(epochs, acc, 'b', label = 'Training Accuracy')
     plt.plot(epochs, val_acc, 'b:', label = 'Validation Accuracy')
@@ -154,8 +156,6 @@ if __name__ == '__main__':
     #plt.legend()
     #plt.savefig(loss_plot_filename)
     
-    epochs = range(1, len(aucloss.auc_test) + 1)
-    plt.plot(epochs, aucloss.auc_test, 'g:', label = 'Validation AUC')
     #plt.plot(epochs, val_acc, 'b', label = 'Validation Accuracy')
     plt.xlabel('Epochs')
     plt.ylabel('Metric Performance')
