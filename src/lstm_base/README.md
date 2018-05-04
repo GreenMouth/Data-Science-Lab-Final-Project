@@ -16,3 +16,8 @@ To run this script just call it from the command line and it will build, train, 
 This script is the exact same as trainChars except it breaks the transcripts into sequences of five words at a time and has it guess the word that comes next. As well, generation is also done a word at a time.
 
 The usage is same as the trainChars script except it outputs a text file called generated_words.txt
+
+
+### Notebook
+
+The ipython notebook just basically is the lstmTesting, trainChars, and trainWords all in one notebook for you to explore yourself and try your own training method
