@@ -1,4 +1,4 @@
-### TFVectorAnalyzer.py
+### TFVectorRecommender.py
 This script generates a matrix of TFIDF vectors of our transcripts then uses cosine similiarity to generate a column that appends onto our metadata dataframe data frame that list the top n most similar other TED talks.
 
 ### analyzeSentiment.py
