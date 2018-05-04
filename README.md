@@ -1,9 +1,9 @@
 # Data-Science-Lab-Final-Project
 ---
 ## Overview
-<p>
-This repository accompanies a project for EE 379K Data Science Laboratory at The University of Texas at Austin. This repository was created by Kate Baumli, Corey Hulse, Amanraj Mahal, and John Sigmon. There is an accompanying blog post [here](https://medium.com/@kate.baumli/highlights). The repository contains Jupyter notebooks, bash scripts, and python3 scripts. There is a requirements file if you wish to clone the repository and set up a virtual environment. Please feel free to issue a pull request for questions, fixes, or future work.
-</p>
+
+This repository accompanies a project for EE 379K Data Science Laboratory at The University of Texas at Austin. This repository was created by Kate Baumli, Corey Hulse, Amanraj Mahal, and John Sigmon. There is an accompanying blog post [here](https://medium.com/@kate.baumli/how-do-people-talk-about-ideas-worth-spreading-c824216f411e). The repository contains Jupyter notebooks, bash scripts, and python3 scripts. There is a requirements file if you wish to clone the repository and set up a virtual environment. Please feel free to issue a pull request for questions, fixes, or future work.
+
 
 ---
 
