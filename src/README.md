@@ -25,7 +25,8 @@ All of the source code for the project is in this directory. Here is a short des
 </li
 <li>
 
-`graphs` has a copy of every graph used in our final report
+`Graphs` has a copy of every graph used in our final report
 
 </li>
+
 </ul>
