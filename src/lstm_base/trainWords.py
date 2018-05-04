@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+import numpy as np
 
 from lstmTesting import *
 
 if __name__ == "__main__":
     allScripts = getData()
-    transcript = ' '.join(allScripts[:5])
-    #transcript = allScripts[0]
+    transcript = np.random.choice(allScripts, 5)
+
     uniqueWords = sorted(set(transcript.split(' ')))
     numUniqueWords = len(uniqueWords)
     stringToInt = dict((string, i) for i, string in enumerate(uniqueWords))
