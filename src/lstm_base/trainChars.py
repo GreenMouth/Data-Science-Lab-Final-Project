@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-
+import numpy as np
 from lstmTesting import *
 
 if __name__ == "__main__":
     allScripts = getData()
-    script1 = ' '.join(allScripts[:5])
-    #script1 = allScripts[0]
+    np.random.choice(allScripts, 5)
     
     chars = sorted(list(set(script1)))
     charsToInt = dict((char, i) for i, char in enumerate(chars))
