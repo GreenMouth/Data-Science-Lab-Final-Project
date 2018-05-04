@@ -3,6 +3,13 @@
 All of the source code for the project is in this directory. Here is a short description of the files.
 
 <ul>
+
+<li>
+
+`clean.sh` chains together all the individual data preparation scripts we wrote. If you run this script it will do all the data cleaning and write a file called merged-data.csv to the data/kaggle-data directory.
+
+</li>
+
 <li>
 
 `data-cleaning` has all the scripts we used for our initial cleaning of our data and initial generation of new features like sentiment score and TFIDF vectors for each transcript 
@@ -22,10 +29,10 @@ All of the source code for the project is in this directory. Here is a short des
 
 `Data-Exploration.ipynb` contains a full exploration of the data, including relevant figures and graphs. 
 
-</li
+</li>
 <li>
 
-`Graphs` has a copy of every graph used in our final report
+`graphs` has a copy of some prepared graphs that were used in our report.
 
 </li>
 

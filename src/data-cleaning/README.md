@@ -15,6 +15,3 @@ Final strip takes one last pass through our metadata dataframe to find and bad o
 
 ### joinData.py
 This merges our TED meta data dataframe with each of the transcripts from our transcript dataframe
-
-### clean.sh 
-This is a bash script that takes our main dataframe and runs it through our pipeline of cleaning python scripts to get it cleaned up for data exploration 

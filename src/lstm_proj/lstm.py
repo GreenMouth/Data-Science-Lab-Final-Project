@@ -36,7 +36,6 @@ weights_filename = 'lstm_glove_model_01.h5'
 df = pd.read_csv(data_filepath + filename)
 genDetector = gender.Detector()
 speaker_names = df.main_speaker.tolist()
-
 print ("Gathering gender data and adding it to data set...")
 
 # Get gender data
